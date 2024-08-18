@@ -1,0 +1,127 @@
+.main{
+    align-items: start;
+    display: flex;
+    /* border: 2px solid black; */
+    font-family: acumin-pro, "Acumin Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+.login{
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    background-color: white;
+    /* border: 2px solid  black; */
+    height: 100vh;
+    width: 50%;
+    /* margin-left: 37rem; */
+    /* z-index: 2; */
+    /* box-shadow: 10px 10px 15px 5px rgba(0,0,0,0.4); */
+}
+
+.sideImage{
+    
+    /* border: 2px solid black; */
+    /* position: relative; */
+    /* margin-top: 2.5rem; */
+    height: 100vh;
+    width: 50%;
+    overflow: hidden;
+    border-radius: 20px;
+}
+.sideImage img{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.abc{
+    height: 20rem;
+    width: 30rem;
+    /* border: 2px solid red; */
+      
+}
+p{
+    margin: 0;
+}
+.slogan{
+    font-weight: 700;
+    
+    text-align: start;
+    font-size: xx-large;
+    color: black;
+    /* display: inline-block; */
+}
+.message{
+    text-align: start;
+   color: #385A64;
+}
+.emailtag{
+ 
+    text-align: start;
+    margin-top: 5rem;
+}
+
+.email{
+    border-radius: 8px;
+    text-align: start;
+    
+    /* margin-left: -9.4rem; */
+    margin-top: .5rem;
+    height: 2rem;
+    width: 17rem;
+    outline: none;
+    background: transparent;
+    border:none;
+    border: 1.5px solid black;
+    color: #385A64;
+    /* text-decoration: underline; */
+}
+.email::placeholder {
+    color: black; /* Placeholder text color */
+    font-family: Montserrat, sans-serif;
+    font-size: 15px; /* Font size */
+    opacity: 5; /* Opacity (default is 0.7 in most browsers) */
+  }
+  .email:focus {
+    border-bottom-color: black; /* Change bottom border color on focus */
+    box-shadow: none; /* Remove default focus shadow */
+    }
+    .passwordtag{
+        margin-top: 1rem;
+        text-align: start;
+    }
+.password{
+   border-radius: 8px;
+   margin-top: .5rem;
+    text-align: start;
+    /* margin-left: -9.4rem; */
+    height: 2.2rem;
+    width: 17rem;
+    outline: none;
+    background: transparent;
+    border: 1.5px solid black;
+    /* border-bottom: 2px solid white; */
+    color:#385A64;
+    /* text-decoration: underline; */
+  }
+  .password:focus {
+  border-bottom-color: black; /* Change bottom border color on focus */
+  box-shadow: none; /* Remove default focus shadow */
+  }
+.password::placeholder {
+      color: black; /* Placeholder text color */
+      font-family: Montserrat, sans-serif;
+      font-size: 15px; /* Font size */
+      opacity: 5; /* Opacity (default is 0.7 in most browsers) */
+    }
+
+    .loginButton{
+        color: white;
+        background-color: black;
+        margin-top: 2rem;
+        width: 17rem;
+        height: 2.2rem;
+        border-radius: 10px;
+        border: none;
+    }

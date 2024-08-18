@@ -1,0 +1,15 @@
+
+  .testEnvironment {
+    margin-top: 20px;
+  } 
+.previewContainer {
+    width: 100%;
+    max-width: 500px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+  }
+  
+.errorMessage {
+    margin-top: 20px;
+  }
+  
