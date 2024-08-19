@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require("dotenv");
 const cors=require("cors");
-// const mongoose = require('mongoose');
+const insertQuestions = require("./Controllers/insertQuestions");
 const authRoute=require("./routes/auhtRoute")
 const connectToMongoDb = require('./config/db');
 // const bcrypt = require('bcryptjs');
@@ -12,15 +12,20 @@ app.use(express.json());
 dotenv.config();
 const PORT=process.env.PORT;
 
-app.use("",authRoute);
+
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-    connectToMongoDb();
-  });
+  console.log(`Server is running on port ${PORT}`);
+
+  connectToMongoDb()
+  .then(() => {
+      console.log('Connected to MongoDB');
+      
+      // Insert questions only after the DB is connected
+      return insertQuestions();
+  })
+});
+app.use("",authRoute);
 
 
-
-
-
-
+  
