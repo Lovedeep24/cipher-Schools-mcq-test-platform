@@ -1,32 +1,36 @@
-const express = require('express');
-const router = express.Router();
-const TestResult = require('../models/testResultSchema');
-const authenticate = require('../Middlewares/validateToken'); // Uncomment this if you want to use authentication
 
-// Controller function for submitting the test result
+
+const Question = require('../models/questionsSchema'); // Adjust the path
+const TestSubmission = require('../models/testSubmissionSchema'); // Adjust the path
+
 const submitTest = async (req, res) => {
-    try {
-        const { score, totalQuestions, correctAnswers } = req.body;
-        const userId = req.user._id; // Assuming req.user is populated by the authenticate middleware
+  try {
+    const { testId, answers, score, totalQuestions, correctAnswers, userEmail } = req.body;
+    console.log('Received request at /submitTest');
+    console.log('Request body:', req.body);
 
-        // Create a new test result instance
-        const testResult = new TestResult({
-            userId,
-            score,
-            totalQuestions,
-            correctAnswers,
-        });
+    // Store the test submission in the database
+    const newSubmission = new TestSubmission({
+      testId,
+      answers,
+      score,
+      totalQuestions,
+      correctAnswers,
+      userEmail,
+      submittedAt: new Date(),
+      evaluated: false
+    });
 
-        // Save the test result to the database
-        await testResult.save();
-        res.status(201).json({ message: 'Test result submitted successfully' });
-    } catch (error) {
-        console.error('Error submitting test result:', error);
-        res.status(500).json({ error: 'An error occurred while submitting the test result' });
-    }
+    await newSubmission.save();
+
+    // Redirect to "Finish Test" page
+    res.status(201).json({ message: 'Test submitted successfully!', redirectUrl: '/finish-test' });
+  } catch (error) {
+    console.error('Error submitting test:', error);
+    res.status(500).json({ message: 'An error occurred while submitting your test. Please try again.' });
+  }
 };
 
-// Define the POST route for submitting the test
-router.post('/submitTest',authenticate,  submitTest); // Add `authenticate` middleware if authentication is required
+module.exports = submitTest;
 
-module.exports = router;
+module.exports = { submitTest };

@@ -1,21 +1,15 @@
 const express = require("express");
-const {login,signup} = require("../Controllers/authController");
-// const saveTestResult = require("../Controllers/saveTestResult");
-// const adminCheck = require("../Middlewares/adminCheck");
-// const createTest = require("../Controllers/createTest");
+const { login, signup } = require("../Controllers/authController");
 const { findQuestion, insertQuestion } = require("../Controllers/questionController");
-const submitTest = require("../Controllers/submitTest");
-// const validateToken = require("../Middlewares/validateToken");
-const router=express.Router();
+const {submitTest} = require("../Controllers/submitTest");
+const authMiddleware = require("../Middlewares/validateToken"); // Import the middleware
 
-router.post("/login",login);
-router.post("/signup",signup);
-router.get("/questions",findQuestion);
-router.post("/questions",insertQuestion);
-router.post('/submitTest', submitTest);
-// router.post('/saveTestResult', saveTestResult);
+const router = express.Router();
 
-// router.post("/create-test",validateToken,adminCheck,createTest);
-// router.post("current",validateToken)
+router.post("/login", login);
+router.post("/signup", signup);
+router.get("/questions", findQuestion);
+router.post("/questions", insertQuestion);
+router.post('/submitTest', authMiddleware, submitTest); // Apply authMiddleware here
 
-module.exports=router;
+module.exports = router;

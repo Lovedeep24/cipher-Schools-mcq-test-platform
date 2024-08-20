@@ -4,6 +4,7 @@ const cors=require("cors");
 const insertQuestions = require("./Controllers/insertQuestions");
 const authRoute=require("./routes/auhtRoute")
 const connectToMongoDb = require('./config/db');
+require('./evaluateTestsCron');
 // const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
 const app=express();

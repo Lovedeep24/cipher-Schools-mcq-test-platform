@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { MediaStreamContext } from "./Context/MediaStreamContext";
 import styles from "./styles/Permissions.module.css";
 
 const Permissions = () => {
+  const { stream, setStream } = useContext(MediaStreamContext);  // Ensure stream is retrieved correctly
   const [error, setError] = useState('');
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
-  const [stream, setStream] = useState(null);
   const videoRef = useRef(null);
   const navigate = useNavigate();
 
@@ -43,7 +44,11 @@ const Permissions = () => {
   }, [stream]);
 
   const proceedToTest = () => {
-    navigate('/test');
+    if (stream) {
+      navigate('/test');
+    } else {
+      setError('Please allow camera and microphone access before proceeding.');
+    }
   };
 
   return (

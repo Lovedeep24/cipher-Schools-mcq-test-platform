@@ -7,6 +7,10 @@ const testResultSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    testId: {
+        type: mongoose.Schema.Types.ObjectId, // Assuming tests are also stored as MongoDB documents
+        required: true,
+    },
     score: {
         type: Number,
         required: true,
@@ -25,5 +29,6 @@ const testResultSchema = new mongoose.Schema({
     },
 });
 
-const TestResult = mongoose.model('TestResult', testResultSchema);
-module.exports = TestResult;
+module.exports = mongoose.model('TestResult', testResultSchema);
+// module.exports = TestResult;
+

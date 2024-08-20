@@ -9,20 +9,39 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();  // Hook for navigation
 
+    // Function to handle successful login
+    const handleLoginSuccess = (token) => {
+        if (token) {
+            localStorage.setItem('token', token);  // Store the token
+            console.log("Token stored successfully");
+            navigate('/permissions');  // Redirect to Permissions page
+        } else {
+            console.error("Failed to store token");
+        }
+    };
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
             const response = await axios.post("http://localhost:9000/login", {
                 email,
                 password
             });
+    
+            console.log("Full Response:", response); // Log the full response to verify
+    
             if (response.status === 200) {
-                alert("Login Successful");
-                navigate('/permissions');  // Redirect to Permissions page
+                const token = response.data.accessToken;  // Extract the token
+                if (token) {
+                    alert("Login Successful");
+                    handleLoginSuccess(token); // Store the token and navigate
+                } else {
+                    console.error("Token not found in response");
+                }
             }
         } catch (error) {
-            console.log(error.response.status);
+            console.log("Error status:", error.response.status);
             if (error.response.status === 404) {
                 alert("User not found");
             } else if (error.response.status === 400) {
@@ -31,7 +50,9 @@ export default function Login() {
                 alert("Something went wrong");
             }
         }
-    }
+    };
+    
+    
 
     return (
         <div className={styles.main}>

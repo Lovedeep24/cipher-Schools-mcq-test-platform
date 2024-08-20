@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
-import styles from './styles/Test.module.css'; // Assuming you have a CSS module for styling
+import { MediaStreamContext } from './Context/MediaStreamContext';
+import styles from './styles/Test.module.css';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 
 const Test = () => {
+  const { stream } = useContext(MediaStreamContext);
+  const videoRef = useRef(null);
+  const navigate = useNavigate();  // Initialize useNavigate hook
+
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [error, setError] = useState('');
   const [timeRemaining, setTimeRemaining] = useState(600);
-
   const [score, setScore] = useState(0);
   const [totalQuestions, setTotalQuestions] = useState(10);
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -18,7 +23,7 @@ const Test = () => {
       try {
         const response = await axios.get('http://localhost:9000/questions');
         setQuestions(response.data);
-        setTotalQuestions(response.data.length); // Set the total number of questions
+        setTotalQuestions(response.data.length);
       } catch (err) {
         setError('Failed to fetch questions');
       }
@@ -26,7 +31,6 @@ const Test = () => {
 
     fetchQuestions();
 
-    // Start the timer
     const timer = setInterval(() => {
       setTimeRemaining(prevTime => {
         if (prevTime <= 1) {
@@ -38,14 +42,33 @@ const Test = () => {
       });
     }, 1000);
 
-    return () => clearInterval(timer); // Cleanup timer on component unmount
+    return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const assignStreamToVideo = () => {
+      if (videoRef.current && stream) {
+        console.log('Assigning stream to video element');
+        videoRef.current.srcObject = stream;
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current.play().catch(err => {
+            console.error('Error starting video playback:', err);
+          });
+        };
+      } else {
+        console.error('videoRef.current or stream is not available', videoRef.current, stream);
+        setTimeout(assignStreamToVideo, 100); // Retry after 100ms
+      }
+    };
+  
+    assignStreamToVideo();
+  }, [stream]);
+
   const handleOptionChange = (questionIndex, optionIndex) => {
-    setAnswers({
-      ...answers,
+    setAnswers(prevAnswers => ({
+      ...prevAnswers,
       [questionIndex]: optionIndex
-    });
+    }));
   };
 
   const handleNext = () => {
@@ -61,41 +84,36 @@ const Test = () => {
   };
 
   const submitTest = async () => {
-    let correctAnswersCount = 0;
-
-    // Calculate the number of correct answers
-    questions.forEach((question, index) => {
-      if (answers[index] === question.correctOptionIndex) {
-        correctAnswersCount++;
-      }
-    });
-
-    const scorePercentage = (correctAnswersCount / totalQuestions) * 100;
-
-    setCorrectAnswers(correctAnswersCount);
-    setScore(scorePercentage);
-
+    const token = localStorage.getItem('token');
+  
+    if (!token) {
+      alert('You are not logged in. Please log in to submit your test.');
+      return;
+    }
+  
     try {
-      const response = await axios.post('http://localhost:9000/submitTest', {
-        score: scorePercentage,
+      const response = await axios.post('http://localhost:9000/api/submitTest', { // Adjust URL as needed
+        testId: '001',
+        answers,
+        score,
         totalQuestions,
-        correctAnswers: correctAnswersCount
+        correctAnswers
       }, {
         headers: {
-            Authorization: `Bearer ${token}` // Include the token in the request headers
+          Authorization: `Bearer ${token}`
         }
-        });
-
+      });
+  
       if (response.status === 201) {
         alert('Test submitted successfully!');
-        // Navigate to results or another page
+        navigate('/results');
       }
     } catch (error) {
       console.error('Error submitting test:', error);
       alert('An error occurred while submitting your test. Please try again.');
     }
   };
-
+  
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -123,24 +141,6 @@ const Test = () => {
 
   return (
     <div className={styles.test}>
-      <div className={styles.heading}><p>Online Test</p></div>
-      <div className={styles.extraInfo}>
-        <div className={styles.time}>
-          <h2>Time Remaining</h2>
-          <h2 className={styles.timer}>{formatTime(timeRemaining)}</h2>
-        </div>
-
-        <div className={styles.questionNav}>
-          {questions.map((_, index) => (
-            <div
-              key={index}
-              className={styles.questionIcon}
-              style={{ backgroundColor: getIconColor(index) }}
-              onClick={() => setCurrentQuestionIndex(index)}
-            />
-          ))}
-        </div>
-      </div>
       <div className={styles.questionArea}>
         <h2 className={styles.questionNumber}>Question {currentQuestionIndex + 1} of {totalQuestions}</h2>
         <p>{currentQuestion.questionText}</p>
@@ -162,6 +162,47 @@ const Test = () => {
           <button onClick={handlePrevious} disabled={currentQuestionIndex === 0}>Previous</button>
           <button onClick={handleNext} disabled={currentQuestionIndex === questions.length - 1}>Next</button>
           <button onClick={submitTest} className={styles.submitButton}>Submit Test</button>
+        </div>
+      </div>
+
+      <div className={styles.extraInfo}>
+        <div className={styles.time}>
+          <h2>Time Remaining</h2>
+          <h2 className={styles.timer}>{formatTime(timeRemaining)}</h2>
+        </div>
+
+        <div className={styles.questionNav}>
+          {questions.map((_, index) => (
+            <div
+              key={index}
+              className={styles.questionIcon}
+              style={{ backgroundColor: getIconColor(index) }}
+              onClick={() => setCurrentQuestionIndex(index)}
+            >
+              {index + 1}
+            </div>
+          ))}
+        </div>
+        <div className={styles.legend}>
+          <div className={styles.legendItem}>
+            <div className={styles.legendIcon} style={{ backgroundColor: 'green' }}></div>
+            <span>Answered</span>
+          </div>
+          <div className={styles.legendItem}>
+            <div className={styles.legendIcon} style={{ backgroundColor: 'blue' }}></div>
+            <span>Current</span>
+          </div>
+          <div className={styles.legendItem}>
+            <div className={styles.legendIcon} style={{ backgroundColor: 'orange' }}></div>
+            <span>Marked</span>
+          </div>
+          <div className={styles.legendItem}>
+            <div className={styles.legendIcon} style={{ backgroundColor: 'gray' }}></div>
+            <span>Unanswered</span>
+          </div>
+        </div>
+        <div className={styles.videoContainer}>
+          <video ref={videoRef} autoPlay muted style={{ width: '100%', height: 'auto' }} />
         </div>
       </div>
     </div>
