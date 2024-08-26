@@ -48,11 +48,12 @@ const sendTestResultsEmails = async () => {
   } catch (error) {
     console.error('Error fetching test submissions or sending emails:', error);
   }
+ 
 };
 
 // Create and start the cron job
 const cronJob = new CronJob(
-  '*/5 * * * *', // Every 5 minutes
+  '* */1 * * *', // Every 5 minutes
   sendTestResultsEmails,
   null,
   true, // Start the job right now
