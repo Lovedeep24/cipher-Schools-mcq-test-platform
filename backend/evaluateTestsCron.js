@@ -78,6 +78,6 @@ const evaluateTests = async () => {
   
 
 // Schedule the cron job to run every hour
-cron.schedule('* * * * *', evaluateTests);
+cron.schedule('59 * * * *', evaluateTests);
 
 module.exports = evaluateTests;

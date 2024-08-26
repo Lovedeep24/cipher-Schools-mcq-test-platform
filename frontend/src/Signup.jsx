@@ -11,7 +11,8 @@ export default function Signup() {
     const handleSubmit=async(e)=>{
       e.preventDefault();
       
-      try {
+      try 
+      {
         const response=await axios.post("http://localhost:9000/signup",{
           name,email,password,role
         })
@@ -21,7 +22,9 @@ export default function Signup() {
           {
             alert("signup succesfull");
           } 
-      } catch (error) {
+      } 
+      catch (error)
+      {
         console.log(error.response.status);
         if(error.response.status === 400)
         {
@@ -37,15 +40,13 @@ export default function Signup() {
       }
     }
   return (
-    <>
-
+  <>
   <div className={styles.main}>
     <div className={styles.signup}>
         
         <form  className={styles.abc} onSubmit={handleSubmit}>
-
-        <p className={styles.slogan}>Sign Up</p>
-        <p className={styles.message}>Please Fill details to Create your account</p>
+                <p className={styles.slogan}>Sign Up</p>
+                <p className={styles.message}>Please Fill details to Create your account</p>
                 <p className={styles.nametag}>Name</p>
                 <input className={styles.name} type='text' onChange={(e)=>{setName(e.target.value)}} placeholder='Name' required /> 
                 <br></br>
@@ -58,14 +59,13 @@ export default function Signup() {
                 <p className={styles.roletag}>Your Role</p>
                 <label>
                 <input className={styles.userTag} type="radio" onChange={(e)=>{setRole(e.target.value)}} name="options" value="User"/>User</label>
-                <label>
-                <input className={styles.adminTag} type="radio" onChange={(e)=>{setRole(e.target.value)}} name="options" value="Admin"/>Admin</label><br/>
                 <button type='submit' className={styles.signupButton}>Signup</button>
         </form>
-        </div>
+
+      </div>
         <div className={styles.sideImage}>
-      <img src={backgroundimage}></img>
-    </div>
+            <img src={backgroundimage}></img>
+        </div>
     </div>
     </>
   )

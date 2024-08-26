@@ -13,10 +13,6 @@ const SignupSchema=mongoose.Schema({
     password:{
         type:String,
         required:true["Please enter Password"],
-    },
-    role:{
-        type:String,
-        required:true["Please enter your Role"],
     }
 }, {
     timestamps: true  

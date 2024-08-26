@@ -10,9 +10,9 @@ export default function Login() {
     const navigate = useNavigate();  // Hook for navigation
 
     // Function to handle successful login
-    const handleLoginSuccess = (token) => {
-        if (token) {
-            localStorage.setItem('token', token);  // Store the token
+    const handleLoginSuccess = (accessToken) => {
+        if (accessToken) {
+            localStorage.setItem('token', accessToken);  // Store the token
             console.log("Token stored successfully");
             navigate('/permissions');  // Redirect to Permissions page
         } else {
@@ -32,23 +32,29 @@ export default function Login() {
             console.log("Full Response:", response); // Log the full response to verify
     
             if (response.status === 200) {
-                const token = response.data.accessToken;  // Extract the token
-                if (token) {
+                const {accessToken} = response.data;  // Extract the token
+                if (accessToken) {
                     alert("Login Successful");
-                    handleLoginSuccess(token); // Store the token and navigate
+                    handleLoginSuccess(accessToken); // Store the token and navigate
                 } else {
                     console.error("Token not found in response");
                 }
             }
         } catch (error) {
-            console.log("Error status:", error.response.status);
-            if (error.response.status === 404) {
-                alert("User not found");
-            } else if (error.response.status === 400) {
-                alert("Invalid password");
-            } else {
-                alert("Something went wrong");
+
+            console.log("Error:", error);
+            if(error.response)
+            {
+                console.log("Error status:", error.response);
+                if (error.response.status === 404) {
+                    alert("User not found");
+                } else if (error.response.status === 400) {
+                    alert("Invalid password");
+                } else {
+                    alert("Something went wrong");
+                }
             }
+            
         }
     };
     

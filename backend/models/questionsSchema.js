@@ -1,20 +1,22 @@
 const mongoose = require('mongoose');
 
 const questionsSchema = new mongoose.Schema({
-    questionText: {
+    questionText: 
+    {
         type: String,
         required: [true, "You must add a question"]
     },
-    options: {
+    options: 
+    {
         type: [String], // Changed to an array of strings
         required: [true, "You must give options"]
     },
-    correctOption: {
+    correctOption:
+    {
         type: Number,
         required: [true, "You must give one correct option"]
     }
 });
-// Create the model using the schema
 
 const Question = mongoose.model("Question", questionsSchema);
 
