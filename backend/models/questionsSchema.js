@@ -8,7 +8,7 @@ const questionsSchema = new mongoose.Schema({
     },
     options: 
     {
-        type: [String], // Changed to an array of strings
+        type: [String], 
         required: [true, "You must give options"]
     },
     correctOption:

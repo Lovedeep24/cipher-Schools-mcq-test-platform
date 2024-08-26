@@ -56,9 +56,6 @@ export default function Signup() {
                 <p className={styles.passwordtag}>Password</p>
                 <input className={styles.password} type='password' onChange={(e)=>{setPassword(e.target.value)}} placeholder='Password' required />    
                 <br></br>
-                <p className={styles.roletag}>Your Role</p>
-                <label>
-                <input className={styles.userTag} type="radio" onChange={(e)=>{setRole(e.target.value)}} name="options" value="User"/>User</label>
                 <button type='submit' className={styles.signupButton}>Signup</button>
         </form>
 

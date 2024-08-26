@@ -2,14 +2,14 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
 import { MediaStreamContext } from './Context/MediaStreamContext';
 import styles from './styles/Test.module.css';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import { jwtDecode } from "jwt-decode";
 
 
 const Test = () => {
   const { stream } = useContext(MediaStreamContext);
   const videoRef = useRef(null);
-  const navigate = useNavigate();  // Initialize useNavigate hook
+  const navigate = useNavigate();  
 
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -17,8 +17,7 @@ const Test = () => {
   const [error, setError] = useState('');
   const [timeRemaining, setTimeRemaining] = useState(600);
   const [score, setScore] = useState(0);
-  const [totalQuestions, setTotalQuestions] = useState(0); // Default to 0
-
+  const [totalQuestions, setTotalQuestions] = useState(0); 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {

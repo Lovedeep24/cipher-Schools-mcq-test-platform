@@ -73,6 +73,7 @@ const signup=async(req,res)=>{
                     password:hashedPassoword,
                    });
                console.log("user created");
+               
                res.status(200).json("user has been created successfully");
             }
     } 

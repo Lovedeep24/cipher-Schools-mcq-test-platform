@@ -2,9 +2,10 @@ const express = require('express');
 const dotenv = require("dotenv");
 const cors=require("cors");
 const insertQuestions = require("./Controllers/insertQuestions");
-const authRoute=require("./routes/auhtRoute")
+const authRoute=require("./routes/auhtRoute");
+const cronJob = require('./sendEmail');
 const connectToMongoDb = require('./config/db');
-require('./evaluateTestsCron');
+
 // const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
 const app=express();
@@ -14,7 +15,7 @@ dotenv.config();
 const PORT=process.env.PORT;
 
 
-
+cronJob.start(); 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 

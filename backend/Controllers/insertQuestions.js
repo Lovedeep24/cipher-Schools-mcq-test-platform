@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 
-// mongoose.connect('mongodb+srv://lovedeep:Lovedeep12345@cluster0.9frqvr5.mongodb.net/mcq-platform?retryWrites=true&w=majority&appName=Cluster0', { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 const Question = require('../models/questionsSchema');
 
-// const Question = mongoose.model('Question', questionSchema);
 
 const questions = [
     {
@@ -66,11 +65,10 @@ const questions = [
 
 const insertQuestions = async () => {
     try {
-        // Check for existing questions
+
         const existingQuestions = await Question.find({ questionText: { $in: questions.map(q => q.questionText) } });
         const existingQuestionsText = existingQuestions.map(q => q.questionText);
 
-        // Filter out questions that already exist
         const newQuestions = questions.filter(q => !existingQuestionsText.includes(q.questionText));
 
         if (newQuestions.length > 0) {
@@ -82,9 +80,7 @@ const insertQuestions = async () => {
     } catch (error) {
         console.error("Error inserting questions:", error);
     }
-    // } finally {
-    //     mongoose.connection.close(); // Close the connection
-    // }
+ 
 };
 
 module.exports = insertQuestions;

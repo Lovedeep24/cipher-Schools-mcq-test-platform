@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Question = require('../models/questionsSchema'); // Import the model, not the schema
 
-// Now, Question is your model
 const findQuestion = async (req, res) => {
     try {
         const questions = await Question.find();

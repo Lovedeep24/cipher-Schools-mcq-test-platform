@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Define TestSubmission Schema
+
 const testSubmissionSchema = new mongoose.Schema({
   finalScore: { type: Number, required: true },
   totalQuestions: { type: Number, required: true },
@@ -9,7 +9,7 @@ const testSubmissionSchema = new mongoose.Schema({
   timestamps: true  
 });
 
-// Create and export TestSubmission model
+
 const TestSubmission = mongoose.model('TestSubmission', testSubmissionSchema);
 
 
