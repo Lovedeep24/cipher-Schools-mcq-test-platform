@@ -7,7 +7,7 @@ const TestSubmission = require('./models/testSubmissionSchema');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'lovedeepbidhan0@gmail.com', // Replace with your Gmail address
+    user: 'lovedeepbidhan0@gmail.com',
     pass: 'elvc wrvn dlnp pikg' // Replace with your Gmail password or app password
   }
 });
@@ -53,7 +53,7 @@ const sendTestResultsEmails = async () => {
 
 // Create and start the cron job
 const cronJob = new CronJob(
-  '* */1 * * *', // Every 5 minutes
+  '0 * * * *', 
   sendTestResultsEmails,
   null,
   true, // Start the job right now
