@@ -7,7 +7,7 @@ const TestSubmission = require('./models/testSubmissionSchema');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'lovedeepbidhan0@gmail.com', // Replace with your Gmail address
+    user: 'lovedeepbidhan0@gmail.com',
     pass: 'elvc wrvn dlnp pikg' // Replace with your Gmail password or app password
   }
 });
