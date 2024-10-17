@@ -7,6 +7,9 @@ import Dashboard from './Dashboard';
 import Test from './Test';
 import Results from './Results';
 import Permissions from './Permissions';
+import AdminPortal from './AdminPortal'
+import AddQuestion from'./AddQuestion';
+import Submissions from'./Submissions';
 
 const App = () => {
   return (
@@ -21,7 +24,11 @@ const App = () => {
           <Route path="/results" element={<Results />} />
           <Route path="/test/:id" element={<Test />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/admin" element={< AdminPortal/>} />
+          <Route path="/addquestions" element={<AddQuestion/>} />
+          <Route path="/submissions" element={<Submissions/>} />
           <Route path="/" element={<Dashboard />} />
+ 
         </Routes>
       </Router>
     </MediaStreamProvider>

@@ -11,18 +11,5 @@ const findQuestion = async (req, res) => {
     }
 };
 
-const insertQuestion = async (req, res) => {
-    const { questionText, options, correctOption } = req.body;
-    if (!questionText || !options || !correctOption) {
-        return res.status(400).json({ error: "You must include questionText, options, and correctOption" });
-    }
-    try {
-        const question = new Question({ questionText, options, correctOption });
-        await question.save();
-        res.status(201).json(question);
-    } catch (err) {
-        res.status(500).json({ error: 'An error occurred while saving the question' });
-    }
-};
 
-module.exports = {findQuestion, insertQuestion};
+module.exports = findQuestion;

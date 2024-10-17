@@ -1,127 +1,130 @@
-.main{
-    align-items: start;
-    display: flex;
-    /* border: 2px solid black; */
-    font-family: acumin-pro, "Acumin Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-
-.login{
-    display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
-    background-color: white;
-    /* border: 2px solid  black; */
-    height: 100vh;
-    width: 50%;
-    /* margin-left: 37rem; */
-    /* z-index: 2; */
-    /* box-shadow: 10px 10px 15px 5px rgba(0,0,0,0.4); */
-}
-
-.sideImage{
-    
-    /* border: 2px solid black; */
-    /* position: relative; */
-    /* margin-top: 2.5rem; */
-    height: 100vh;
-    width: 50%;
-    overflow: hidden;
-    border-radius: 20px;
-}
-.sideImage img{
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-}
-
-.abc{
-    height: 20rem;
-    width: 30rem;
-    /* border: 2px solid red; */
-      
-}
-p{
+*{
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
 }
-.slogan{
-    font-weight: 700;
-    
-    text-align: start;
-    font-size: xx-large;
-    color: black;
-    /* display: inline-block; */
+.main{
+    /* border: 2px solid #000; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* background-color: #f1f1f1; */
 }
-.message{
-    text-align: start;
-   color: #385A64;
+.right{
+    /* border: 2px solid red; */
+    width: 50%;
+    height: 100%;
+    padding-left: 3rem;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
 }
-.emailtag{
- 
-    text-align: start;
-    margin-top: 5rem;
+.left{
+    /* background-color: rgba(243, 245, 247, 1); */
+    /* border: 2px solid green; */
+    width: 50%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
-
-.email{
-    border-radius: 8px;
-    text-align: start;
-    
-    /* margin-left: -9.4rem; */
-    margin-top: .5rem;
-    height: 2rem;
-    width: 17rem;
-    outline: none;
-    background: transparent;
-    border:none;
-    border: 1.5px solid black;
-    color: #385A64;
-    /* text-decoration: underline; */
+.left h1{
+    padding-top: .5rem;
+    height: 10%;
+    text-align: center;
+    /* border: 2px solid blue; */
+    font-size: 2rem;
+    color: #000;
 }
-.email::placeholder {
-    color: black; /* Placeholder text color */
-    font-family: Montserrat, sans-serif;
-    font-size: 15px; /* Font size */
-    opacity: 5; /* Opacity (default is 0.7 in most browsers) */
+.image {
+    width: 100%; /* Fill the full width */
+    height: 90%; /* Set a fixed height for the container */
+    overflow: hidden; /* Hide any overflow */
   }
-  .email:focus {
-    border-bottom-color: black; /* Change bottom border color on focus */
-    box-shadow: none; /* Remove default focus shadow */
-    }
-    .passwordtag{
+  
+  .image img {
+    width: 100%; /* Allow width to adjust */
+    height: 100%; /* Fill the height of the container */
+    object-fit: contain; /* Ensure the image fits within the div without cropping */
+    display: block; /* Remove any extra space below the image */
+  }
+  
+.right h2{
+    margin-left: 1rem;
+    margin-top: 6rem;
+    /* border: 2px solid red; */
+    text-align: start;
+    font-size: 2rem;
+    color: #000;
+  }
+.right p{
+    margin-left: 1rem;
+        /* border: 2px solid green; */
         margin-top: 1rem;
         text-align: start;
+        color: #000;
     }
-.password{
-   border-radius: 8px;
-   margin-top: .5rem;
-    text-align: start;
-    /* margin-left: -9.4rem; */
-    height: 2.2rem;
-    width: 17rem;
+    .right span{
+        color: rgba(56, 203, 137, 1);
+        font-weight: bold;
+    }
+.inputs{
+    /* border: 2px solid #000; */
+    width: 70%;
+    height: 40%;
+    margin: 18px 0;
+    padding: 0 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
     outline: none;
-    background: transparent;
-    border: 1.5px solid black;
-    /* border-bottom: 2px solid white; */
-    color:#385A64;
-    /* text-decoration: underline; */
-  }
-  .password:focus {
-  border-bottom-color: black; /* Change bottom border color on focus */
-  box-shadow: none; /* Remove default focus shadow */
-  }
-.password::placeholder {
-      color: black; /* Placeholder text color */
-      font-family: Montserrat, sans-serif;
-      font-size: 15px; /* Font size */
-      opacity: 5; /* Opacity (default is 0.7 in most browsers) */
-    }
+}
+.inputs input{
+    border: 0cap;
+    border-bottom: 1px solid rgba(232, 236, 239, 1);
+    width: 100%;
+    height: 40px;
+    margin: 10px 0;
+    padding: 0 10px;
+    font-size: 1.2rem;
+    outline: none;
+}
+#terms{
+    display: flex;
+}
+.right button{
+    /* border: 2px solid #000; */
+    width: 68%;
+    height: 50px;
+    margin-left:1rem;
+    margin-top: 2rem;
+    padding: 0 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    outline: none;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+.terms {
+    display: flex;
+    align-items: center; /* Center checkbox and label */
+    margin-left:  1rem;
+}
+.terms label{
+    margin-left: 1rem;
+}
+.terms span{
+    color: #000;
+}
+.forgotPassword {
+    margin-top: 10px;
+    margin-left: 20%;
+}
 
-    .loginButton{
-        color: white;
-        background-color: black;
-        margin-top: 2rem;
-        width: 17rem;
-        height: 2.2rem;
-        border-radius: 10px;
-        border: none;
-    }
+.forgotPassword a {
+    color: black; /* Adjust color as needed */
+    text-decoration: none; /* Optional: underline the link */
+    font-weight: bold;
+    cursor: pointer; /* Pointer cursor for links */
+}

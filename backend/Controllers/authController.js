@@ -4,7 +4,7 @@ const jwt=require("jsonwebtoken");
 
 //LOGIN
 const login=async(req,res)=>{
-    const {email,password}=req.body;
+    const {email,password,role}=req.body;
     console.log(email,password);
   
     if(!email || !password)
@@ -24,12 +24,17 @@ const login=async(req,res)=>{
             {
                 if(await bcrypt.compare(password,User.password))
                     {
+                        if(User.role!==role)
+                        {
+                            res.status(401).json("NOt allowed");
+                        }
                         const accessToken=jwt.sign({
                         user: 
                             {
                                 username : User.name,
                                 id:User.id,
                                 email : User.email,
+                                role:User.role,
                             }
                         },process.env.ACCESS_TOKEN_SECRET,{expiresIn:"1hr"})
                         res.status(200).json({accessToken});
@@ -42,7 +47,7 @@ const login=async(req,res)=>{
     } 
     catch (error) 
         {
-            res.json("error");
+            res.status(404);
         }
 };
 
@@ -53,7 +58,7 @@ const signup=async(req,res)=>{
     console.log(hashedPassoword);
     if(!name || !email || !password )
     {
-        res.status(404).json("All fields are mandatory");
+       return res.status(404).json("All fields are mandatory");
     }
     try 
     {
@@ -79,7 +84,7 @@ const signup=async(req,res)=>{
     } 
     catch (error) 
     {
-        res.status(500).json(`An error occured while signup ${error}`);
+        res.status(500).json("Internal Server Error");
     }
    
     }

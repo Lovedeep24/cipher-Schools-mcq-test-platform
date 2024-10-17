@@ -11,6 +11,7 @@ const Dashboard = () => {
       <div className={styles.authLinks}>
         <Link to="/login" className={styles.loginLink}>Login</Link>
         <Link to="/signup" className={styles.signupLink}>Signup</Link>
+        {/* <Link to="/admin" className={styles.adminLink}>Admin Portal</Link> */}
       </div>
     </div>
   );

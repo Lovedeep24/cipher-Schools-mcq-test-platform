@@ -1,4 +1,4 @@
-.dashboard {
+/* .dashboard {
     text-align: center;
     padding: 20px;
   }
@@ -18,4 +18,58 @@
   
   .loginLink:hover, .signupLink:hover {
     background-color: #0056b3;
+  } */
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #f4f4f9;
+    color: #333;
+    text-align: center;
+    padding: 20px;
   }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+  
+  .authLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .loginLink, .signupLink {
+    display: inline-block;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #3498db;
+    transition: background-color 0.3s ease;
+  }
+  
+  .loginLink:hover, .signupLink:hover {
+    background-color: #2980b9;
+  }
+  
+  .signupLink {
+    background-color: #27ae60;
+  }
+  
+  .signupLink:hover {
+    background-color: #1e8449;
+  }
+  

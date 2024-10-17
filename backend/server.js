@@ -22,9 +22,7 @@ app.listen(PORT, () => {
   connectToMongoDb()
   .then(() => {
       console.log('Connected to MongoDB');
-      
-      // Insert questions only after the DB is connected
-      return insertQuestions();
+
   })
 });
 app.use("",authRoute);

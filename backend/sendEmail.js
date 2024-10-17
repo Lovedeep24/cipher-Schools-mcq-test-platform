@@ -33,15 +33,19 @@ const sendTestResultsEmails = async () => {
     // Connect to MongoDB
     await connectToMongoDb();
 
-    // Fetch test submissions from the database
-    const submissions = await TestSubmission.find();
-    console.log(`Found ${submissions.length} test submissions`);
+    const submissions = await TestSubmission.find({ status: false });
+    console.log(`Found ${submissions.length} test submissions with status false`);
+
 
     // Send email for each submission
     for (const submission of submissions) {
       const subject = 'Your Test Results';
-      const text = `Hello,\n\nThank you for taking the test. Your final score is ${submission.finalScore} out of ${submission.totalQuestions}.\n\nBest regards,\nThe Test Team Cipher Schools`;
+      const text = `Hello,\n\nThank you for taking the test. Your final score is ${submission.finalScore} out of ${submission.totalQuestions}.\n\nBest regards,\nThe Test Team SmartQ.`;
       await sendEmail(submission.email, subject, text);
+      
+      submission.status = true;
+      await submission.save();
+    
     }
 
     console.log('All emails sent successfully');
@@ -53,7 +57,7 @@ const sendTestResultsEmails = async () => {
 
 // Create and start the cron job
 const cronJob = new CronJob(
-  '* */1 * * *', // Every 5 minutes
+  '0 * * * *', 
   sendTestResultsEmails,
   null,
   true, // Start the job right now
