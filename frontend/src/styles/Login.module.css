@@ -109,6 +109,7 @@
 .terms {
     display: flex;
     align-items: center; /* Center checkbox and label */
+    margin-top: 1rem;
     margin-left:  1rem;
 }
 .terms label{
@@ -116,6 +117,13 @@
 }
 .terms span{
     color: #000;
+}
+.roleBox{
+    display: flex;
+    /* margin-left: 1rem; */
+}
+.roleBox label{
+    margin-left: 1rem;
 }
 .forgotPassword {
     margin-top: 10px;

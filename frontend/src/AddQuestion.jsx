@@ -1,71 +1,61 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import styles from './styles/AddQuestion.module.css'// Import the CSS file
+
 function AddQuestion() {
   const [questionText, setQuestionText] = useState('');
-  const [options, setOptions] = useState(['', '', '', '']); // Array for options
-  const [correctOption, setCorrectOption] = useState(''); // Index for the correct option
+  const [options, setOptions] = useState(['', '', '', '']);
+  const [correctOption, setCorrectOption] = useState('');
   const [error, setError] = useState('');
+
   const handleOptionChange = (index, value) => {
     const newOptions = [...options];
     newOptions[index] = value;
     setOptions(newOptions);
-    setError(''); // Clear error when changing options
+    setError('');
   };
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (options.some(option => option.trim() === '') || questionText.trim() === '') {
-        setError("All fields are mandatory");
-        return;
+      setError("All fields are mandatory");
+      return;
     }
     try {
-        const response = await axios.post("http://localhost:9000/insertquestions", {
-            questionText,
-            options,
-            correctOption
-        });
-        if(response.status===201){
-            setError("New question inserted successfully");
-            console.log("New question inserted successfully");
-            setQuestionText('');
-            setOptions(['', '', '', '']); // Reset options
-            setCorrectOption(''); // Reset correct option index
-        }
+      const response = await axios.post("http://localhost:9000/insertquestions", {
+        questionText,
+        options,
+        correctOption,
+      });
+      if (response.status === 201) {
+        setError("New question inserted successfully");
+        setQuestionText('');
+        setOptions(['', '', '', '']);
+        setCorrectOption('');
+      }
     } catch (error) {
-        if(error.response.status===401){
-            setError("All fields are mandatory");
-            return;
+      if (error.response) {
+        if (error.response.status === 401) {
+          setError("All fields are mandatory");
+        } else if (error.response.status === 400) {
+          setError("Must give 4 options");
+        } else if (error.response.status === 409) {
+          setError("Question already exists in the database");
+        } else {
+          setError("Internal server error");
         }
-        else if(error.response.status===400){
-            setError("Must give 4 options");
-            console.log("Must give 4 options");
-        }
-        else if(error.response.status===409){
-            setError("Question already exists in the database");
-            console.log("Question already exists in the database");
-        }
-        else{
-            setError("Internal server error");
-            console.log("Internal server error");
-        }
+      } else {
+        setError("Network error");
+      }
     }
-
-    const newQuestion = {
-      questionText,
-      options,
-      correctOption,
-    };
-    console.log("New Question:", newQuestion);
-    // Reset the form after submission if needed
-    setQuestionText('');
-    setOptions(['', '', '', '']); // Reset options
-    setCorrectOption(''); // Reset correct option index
   };
 
   return (
-    <div>
-         <Link to="/">Home</Link>
+    <div className={styles.container}>
+      <Link to="/admin" className={styles.link}>Admin Home</Link>
+      <br></br>
+      <Link to="/" className={styles.link}>Home</Link>
       <h1>Add Question</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -96,7 +86,7 @@ function AddQuestion() {
         </div>
         <button type="submit">Submit</button>
       </form>
-      <h2>{error}</h2>
+      {error && <h2 className={styles.error}>{error}</h2>}
     </div>
   );
 }

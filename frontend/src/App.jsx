@@ -10,7 +10,7 @@ import Permissions from './Permissions';
 import AdminPortal from './AdminPortal'
 import AddQuestion from'./AddQuestion';
 import Submissions from'./Submissions';
-
+import TestCluster from './TestCluster';
 const App = () => {
   return (
     <MediaStreamProvider>
@@ -19,14 +19,15 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/test/:id" element={<Test />} />
+          {/* <Route path="/test/:id" element={<Test />} /> */}
           <Route path="/permissions" element={<Permissions />} />
           <Route path="/results" element={<Results />} />
-          <Route path="/test/:id" element={<Test />} />
+          <Route path="/test/:testId" element={<Test />} />
           <Route path="/test" element={<Test />} />
           <Route path="/admin" element={< AdminPortal/>} />
           <Route path="/addquestions" element={<AddQuestion/>} />
           <Route path="/submissions" element={<Submissions/>} />
+          <Route path="/tests" element={<TestCluster/>} />
           <Route path="/" element={<Dashboard />} />
  
         </Routes>

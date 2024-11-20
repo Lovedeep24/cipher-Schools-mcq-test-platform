@@ -26,7 +26,7 @@ export default function Login() {
             if (userRole === 'Admin') {
                 navigate('/admin'); // Redirect to Admin Dashboard
             } else if (userRole === 'User') {
-                navigate('/permissions'); // Redirect to User Dashboard
+                navigate('/tests'); // Redirect to User Dashboard
             }
             // Redirect to Permissions page
         } else {

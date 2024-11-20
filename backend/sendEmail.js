@@ -64,4 +64,4 @@ const cronJob = new CronJob(
   'Asia/Kolkata' // Indian time zone
 );
 
-module.exports = cronJob;
+module.exports = cronJob,transporter;

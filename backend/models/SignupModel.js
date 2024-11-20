@@ -17,8 +17,12 @@ const SignupSchema = mongoose.Schema({
     role: {
         type: String,
         required: [true, "Please enter Role"],
-        default: "User" // Set default role to "User"
-    }
+        default: "User" 
+    },
+   testHistory:
+   {
+         type: [{type:mongoose.Schema.Types.ObjectId,ref:"TestHistory"}]
+   }
 }, {
     timestamps: true  
 });

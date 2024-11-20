@@ -5,7 +5,7 @@ import styles from "./styles/Dashboard.module.css"; // Assuming you have a CSS m
 const Dashboard = () => {
   return (
     <div className={styles.dashboard}>
-      <h1>Welcome to the MCQ Test Platform</h1>
+      <h2>Welcome to the MCQ Test Platform</h2>
       <p>This platform allows students to take multiple-choice question tests, manage their profiles, and view their results.</p>
       
       <div className={styles.authLinks}>

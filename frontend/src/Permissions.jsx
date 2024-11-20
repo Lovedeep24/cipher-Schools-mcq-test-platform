@@ -4,7 +4,7 @@ import { MediaStreamContext } from "./Context/MediaStreamContext";
 import styles from "./styles/Permissions.module.css";
 
 const Permissions = () => {
-  const { stream, setStream } = useContext(MediaStreamContext);  // Ensure stream is retrieved correctly
+  const { stream, setStream } = useContext(MediaStreamContext);
   const [error, setError] = useState('');
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
   const videoRef = useRef(null);
@@ -22,8 +22,8 @@ const Permissions = () => {
       console.log("Stream obtained:", mediaStream);
 
       setStream(mediaStream);
-      setIsPreviewVisible(true); // Ensure video element is rendered
-      setError(''); // Clear any previous error messages
+      setIsPreviewVisible(true);
+      setError('');
     } catch (err) {
       console.error("Error accessing media devices:", err);
       setIsPreviewVisible(false);
@@ -54,7 +54,12 @@ const Permissions = () => {
   return (
     <div className={styles.testEnvironment}>
       {!isPreviewVisible && (
-        <button onClick={startTest}>Start Test</button>
+        <div>
+          <div className={styles.infoMessage}>
+            The test is about to start. Please ensure your camera and microphone are working properly. Click the button below to begin.
+          </div>
+          <button onClick={startTest}>Start Test</button>
+        </div>
       )}
 
       {isPreviewVisible && (
