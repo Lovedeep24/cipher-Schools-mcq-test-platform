@@ -16,11 +16,13 @@ export default function Login() {
     // Function to handle successful login
     const handleLoginSuccess = (accessToken) => {
         if (accessToken) {
-            localStorage.setItem('token', accessToken);  // Store the token
+            localStorage.setItem('accessToken', accessToken);  // Store the token
             console.log("Token stored successfully");
             const decodedToken = jwtDecode(accessToken);
             console.log("Decoded token:", decodedToken);
-
+            const expirationTime = decodedToken.exp;
+            const expirationDate = new Date(expirationTime * 1000);
+            console.log("Expiration Date:", expirationDate);
             const userRole = decodedToken.user.role; // Extract role from the token
             console.log("User role:", userRole);
             if (userRole === 'Admin') {
@@ -74,7 +76,6 @@ export default function Login() {
             
         }
     };
-    
 
     return (
         <div className={styles.main}>
@@ -132,7 +133,6 @@ export default function Login() {
         <button type="submit">Log in</button>
                     </form>
             </div>
-           
         </div>
     )
 }

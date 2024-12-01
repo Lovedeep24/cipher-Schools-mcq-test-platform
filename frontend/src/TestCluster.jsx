@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styles from "./Styles/TestCluster.module.css";
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+
+// const token = localStorage.getItem('token')
 // const[testName,setTestName]=useState("");
 // const[testDescription,setTestDescription]=useState("");
 // const[createdOn,setCreatedOn]=useState("");
@@ -9,7 +12,20 @@ function TestCluster() {
   const[tests,setTests]=useState([]);
   const Navigate = useNavigate();
   const fetchtests=async()=>{
-    const response=await fetch('http://localhost:9000/tests');
+    const token = localStorage.getItem('token'); // Retrieve the token
+    const decode=jwtDecode(token);
+    console.log(decode);
+    if (!token) {
+      alert("Unauthorized access. Please login.");
+      window.location.href = "/login"; // Redirect to login
+      return;
+    }
+    const response=await fetch('http://localhost:9000/tests',{
+      headers: {
+        'Authorization': `Bearer ${token}`,  // Send token in Authorization header
+        'Content-Type': 'application/json'
+      }
+    });
     const data=await response.json();
     if(data.data)
     {

@@ -26,7 +26,7 @@ const login=async(req,res)=>{
                     {
                         if(User.role!==role)
                         {
-                            res.status(401).json("NOt allowed");
+                            res.status(401).json("Not allowed");
                         }
                         const accessToken=jwt.sign({
                         user: 

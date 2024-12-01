@@ -13,7 +13,7 @@ const questionsSchema = new mongoose.Schema({
     },
     correctOption:
     {
-        type: Number,
+        type: String,
         required: [true, "You must give one correct option"]
     }
 });

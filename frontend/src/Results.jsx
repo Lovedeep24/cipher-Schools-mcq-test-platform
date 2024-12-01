@@ -5,16 +5,7 @@ import styles from './styles/results.module.css'; // Import the CSS module
 const ResultPage = () => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     navigate('/'); // Adjust the path if needed
-  //   }, 10000); // 10 seconds
-
-  //   // Cleanup timer on component unmount
-  //   return () => clearTimeout(timer);
-  // }, [navigate]);
-
-  return (
+return (
     <div className={styles.container}>
       <div className={styles.content}>
         <h1 className={styles.title}>Thank You for Taking the Test!</h1>

@@ -1,8 +1,8 @@
 const TestSubmission = require('../models/testSubmissionSchema'); // Adjust the path as necessary
 const submitTest = async (req, res) => {
   try {
-    const { finalScore, totalQuestions, email } = req.body;
-
+    const {  correctCount, totalQuestions, email } = req.body;
+    const finalScore = correctCount;
     // Allow finalScore to be zero
     if (finalScore < 0 || finalScore > totalQuestions) {
       return res.status(400).json({ message: 'Invalid score' });

@@ -4,6 +4,7 @@ const findQuestion= require("../Controllers/questionController");
 const submitTest= require("../Controllers/submitTest");
 const submissioncheck=require('../Controllers/submissionCheck')
 const validateQuestion=require('../Middlewares/validateQuestion');
+const validateToken = require("../Middlewares/validateToken");
 const insertQuestion = require("../Controllers/insertQuestions");
 const forgotPassword = require("../Controllers/forgotPassword");
 const resetPassword = require("../Controllers/resetPassword");
@@ -20,8 +21,8 @@ router.get("/questions", findQuestion);
 router.post("/insertquestions", validateQuestion,insertQuestion);
 router.post("/createTest", createTest);
 router.post("/:testid/ques-to-test", addquestionToTest);
-router.get("/tests", allTests);
-router.get("/tests/:testId/questions", questions);
+router.get("/tests",validateToken, allTests);
+router.get("/tests/:testId/questions",validateToken, questions);
 router.post('/submitTest', submitTest);
 router.get('/submissions', submissioncheck );
 // router.post('/forget-password', forgotPassword);
